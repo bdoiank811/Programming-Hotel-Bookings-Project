@@ -1,0 +1,101 @@
+booking_id,hotel_id,hotel_name,hotel_city,room_id,room_type,room_rate,guest_id,guest_name,guest_country,check_in,nights,check_out,guests_count,booking_status
+B0001,H02,Stanton Inn,New Rita,H02-103,Family,190,G043,Brian Silva,Macao,2026-01-16,6,2026-01-22,4,Checked-out
+B0002,H03,Harrell Plaza,Meaganhaven,H03-108,Single,90,G011,Monique Henderson,Croatia,2026-07-23,7,2026-07-30,4,Cancelled
+B0003,H01,Moore Resort,Lake Nancyview,H01-105,Suite,270,G040,Dorothy Tucker,Comoros,2026-01-29,5,2026-02-03,1,Checked-out
+B0004,H02,Stanton Inn,New Rita,H02-105,Family,190,G038,Kristen Mitchell,Qatar,2026-03-27,5,2026-04-01,1,Checked-out
+B0005,H01,Moore Resort,Lake Nancyview,H01-103,Suite,250,G042,Jill Brown,Germany,2026-07-06,4,2026-07-10,2,Checked-out
+B0006,H02,Stanton Inn,New Rita,H02-107,Family,190,G012,Sarah Campos,Portugal,2026-02-20,1,2026-02-21,3,Checked-out
+B0007,H02,Stanton Inn,New Rita,H02-105,Family,190,G021,Amber Cummings,Turkmenistan,2026-02-26,2,2026-02-28,4,Checked-out
+B0008,H02,Stanton Inn,New Rita,H02-103,Family,190,G022,Ashley Kennedy,Slovenia,2026-08-05,7,2026-08-12,4,Checked-out
+B0009,H02,Stanton Inn,New Rita,H02-101,Double,140,G049,Christine Barnes,Myanmar,2025-11-29,7,2025-12-06,4,Cancelled
+B0010,H02,Stanton Inn,New Rita,H02-101,Double,140,G006,John Allen,Montenegro,2026-04-19,4,2026-04-23,1,Cancelled
+B0011,H03,Harrell Plaza,Meaganhaven,H03-108,Single,90,G035,Todd Lewis,Iran,2026-11-03,1,2026-11-04,3,Checked-out
+B0012,H01,Moore Resort,Lake Nancyview,H01-108,Family,200,G042,Jill Brown,Germany,2026-11-02,1,2026-11-03,1,Checked-out
+B0013,H01,Moore Resort,Lake Nancyview,H01-101,Suite,260,G016,Matthew Chapman,Denmark,2025-11-29,2,2025-12-01,1,Cancelled
+B0014,H03,Harrell Plaza,Meaganhaven,H03-104,Family,200,G010,Stacey Martin,Marshall Islands,2026-01-20,2,2026-01-22,2,Checked-out
+B0015,H02,Stanton Inn,New Rita,H02-108,Single,100,G043,Brian Silva,Macao,2026-02-08,1,2026-02-09,2,Checked-out
+B0016,H02,Stanton Inn,New Rita,H02-107,Family,190,G045,Susan Miller,Colombia,2026-10-10,3,2026-10-13,3,Checked-out
+B0017,H01,Moore Resort,Lake Nancyview,H01-106,Single,80,G039,Susan Cowan,Moldova,2026-09-21,5,2026-09-26,1,Checked-out
+B0018,H01,Moore Resort,Lake Nancyview,H01-106,Single,80,G020,John Caldwell,Croatia,2026-09-20,1,2026-09-21,1,Cancelled
+B0019,H02,Stanton Inn,New Rita,H02-102,Double,120,G037,Tricia Baker,Slovenia,2026-03-18,6,2026-03-24,4,Cancelled
+B0020,H02,Stanton Inn,New Rita,H02-105,Family,190,G046,Casey Jones,Tokelau,2025-12-30,2,2026-01-01,1,Checked-out
+B0021,H03,Harrell Plaza,Meaganhaven,H03-103,Suite,260,G045,Susan Miller,Colombia,2026-09-04,7,2026-09-11,2,Checked-out
+B0022,H01,Moore Resort,Lake Nancyview,H01-104,Suite,260,G045,Susan Miller,Colombia,2026-07-18,7,2026-07-25,3,Checked-out
+B0023,H03,Harrell Plaza,Meaganhaven,H03-106,Double,130,G039,Susan Cowan,Moldova,2026-06-14,7,2026-06-21,1,Cancelled
+B0024,H03,Harrell Plaza,Meaganhaven,H03-103,Suite,260,G003,Alyssa Smith,Gibraltar,2026-10-30,3,2026-11-02,4,Checked-out
+B0025,H03,Harrell Plaza,Meaganhaven,H03-106,Double,130,G024,Collin Jordan,Jamaica,2026-06-30,1,2026-07-01,3,Cancelled
+B0026,H01,Moore Resort,Lake Nancyview,H01-101,Suite,260,G027,Bruce Chandler,South Georgia and the South Sandwich Islands,2025-11-05,7,2025-11-12,4,Cancelled
+B0027,H01,Moore Resort,Lake Nancyview,H01-104,Suite,260,G028,Michelle Wright,Comoros,2026-08-29,3,2026-09-01,4,Checked-out
+B0028,H03,Harrell Plaza,Meaganhaven,H03-107,Family,190,G010,Stacey Martin,Marshall Islands,2026-02-20,4,2026-02-24,2,Checked-out
+B0029,H03,Harrell Plaza,Meaganhaven,H03-108,Single,90,G034,Karen Young,Ireland,2026-07-03,6,2026-07-09,3,Checked-out
+B0030,H03,Harrell Plaza,Meaganhaven,H03-104,Family,200,G035,Todd Lewis,Iran,2026-10-12,7,2026-10-19,4,Cancelled
+B0031,H02,Stanton Inn,New Rita,H02-107,Family,190,G028,Michelle Wright,Comoros,2025-12-22,7,2025-12-29,3,Checked-out
+B0032,H02,Stanton Inn,New Rita,H02-103,Family,190,G016,Matthew Chapman,Denmark,2025-12-15,7,2025-12-22,1,Cancelled
+B0033,H02,Stanton Inn,New Rita,H02-101,Double,140,G029,Amanda Taylor,Cocos (Keeling) Islands,2025-12-12,2,2025-12-14,4,Checked-out
+B0034,H03,Harrell Plaza,Meaganhaven,H03-103,Suite,260,G040,Dorothy Tucker,Comoros,2026-05-24,6,2026-05-30,4,Checked-out
+B0035,H02,Stanton Inn,New Rita,H02-103,Family,190,G002,Evan Ashley,Uzbekistan,2026-02-10,4,2026-02-14,3,Checked-out
+B0036,H01,Moore Resort,Lake Nancyview,H01-106,Single,80,G032,Andrea Williams,Mauritius,2026-06-12,2,2026-06-14,3,Cancelled
+B0037,H02,Stanton Inn,New Rita,H02-101,Double,140,G022,Ashley Kennedy,Slovenia,2026-07-23,3,2026-07-26,3,Checked-out
+B0038,H03,Harrell Plaza,Meaganhaven,H03-102,Single,90,G001,Chelsea Hernandez,Serbia,2026-01-16,5,2026-01-21,2,Checked-out
+B0039,H01,Moore Resort,Lake Nancyview,H01-103,Suite,250,G016,Matthew Chapman,Denmark,2026-06-23,6,2026-06-29,4,Checked-out
+B0040,H02,Stanton Inn,New Rita,H02-108,Single,100,G036,Rachel Martin,Afghanistan,2026-02-07,7,2026-02-14,2,Checked-out
+B0041,H03,Harrell Plaza,Meaganhaven,H03-107,Family,190,G031,Charles Morton,Togo,2026-04-30,6,2026-05-06,4,Checked-out
+B0042,H02,Stanton Inn,New Rita,H02-107,Family,190,G002,Evan Ashley,Uzbekistan,2026-09-30,1,2026-10-01,3,Checked-out
+B0043,H01,Moore Resort,Lake Nancyview,H01-108,Family,200,G026,Emily Joyce,Bolivia,2026-09-08,6,2026-09-14,2,Checked-out
+B0044,H02,Stanton Inn,New Rita,H02-102,Double,120,G043,Brian Silva,Macao,2025-12-06,5,2025-12-11,3,Checked-out
+B0045,H02,Stanton Inn,New Rita,H02-108,Single,100,G036,Rachel Martin,Afghanistan,2026-04-07,5,2026-04-12,3,Checked-out
+B0046,H02,Stanton Inn,New Rita,H02-106,Single,80,G048,Ashley Riley,Armenia,2026-02-12,5,2026-02-17,3,Checked-out
+B0047,H02,Stanton Inn,New Rita,H02-104,Suite,270,G045,Susan Miller,Colombia,2025-11-04,4,2025-11-08,3,Checked-out
+B0048,H02,Stanton Inn,New Rita,H02-102,Double,120,G017,Brianna Smith,Russian Federation,2026-08-12,2,2026-08-14,1,Checked-out
+B0049,H03,Harrell Plaza,Meaganhaven,H03-108,Single,90,G013,James Collins,Paraguay,2026-06-24,3,2026-06-27,1,Checked-out
+B0050,H03,Harrell Plaza,Meaganhaven,H03-108,Single,90,G035,Todd Lewis,Iran,2026-02-06,7,2026-02-13,2,Checked-out
+B0051,H01,Moore Resort,Lake Nancyview,H01-107,Double,120,G014,Debra Kim,Maldives,2026-08-01,6,2026-08-07,4,Checked-out
+B0052,H02,Stanton Inn,New Rita,H02-101,Double,140,G047,Joe Wilson,Tuvalu,2026-05-23,5,2026-05-28,3,Checked-out
+B0053,H01,Moore Resort,Lake Nancyview,H01-104,Suite,260,G013,James Collins,Paraguay,2026-04-08,3,2026-04-11,2,Cancelled
+B0054,H02,Stanton Inn,New Rita,H02-104,Suite,270,G012,Sarah Campos,Portugal,2025-11-06,3,2025-11-09,1,Checked-out
+B0055,H03,Harrell Plaza,Meaganhaven,H03-107,Family,190,G035,Todd Lewis,Iran,2025-11-30,2,2025-12-02,3,Checked-out
+B0056,H01,Moore Resort,Lake Nancyview,H01-102,Single,100,G004,Tracy Rodriguez,Guyana,2026-09-22,5,2026-09-27,3,Cancelled
+B0057,H03,Harrell Plaza,Meaganhaven,H03-107,Family,190,G009,Katie Anderson,Lebanon,2026-09-29,6,2026-10-05,4,Cancelled
+B0058,H01,Moore Resort,Lake Nancyview,H01-104,Suite,260,G001,Chelsea Hernandez,Serbia,2026-05-21,5,2026-05-26,3,Checked-out
+B0059,H02,Stanton Inn,New Rita,H02-108,Single,100,G031,Charles Morton,Togo,2026-09-04,4,2026-09-08,3,Checked-out
+B0060,H01,Moore Resort,Lake Nancyview,H01-106,Single,80,G004,Tracy Rodriguez,Guyana,2026-06-04,3,2026-06-07,4,Checked-out
+B0061,H01,Moore Resort,Lake Nancyview,H01-104,Suite,260,G005,Natasha Decker,Gambia,2025-12-27,4,2025-12-31,4,Checked-out
+B0062,H01,Moore Resort,Lake Nancyview,H01-103,Suite,250,G037,Tricia Baker,Slovenia,2025-12-19,6,2025-12-25,1,Cancelled
+B0063,H01,Moore Resort,Lake Nancyview,H01-105,Suite,270,G010,Stacey Martin,Marshall Islands,2026-02-23,7,2026-03-02,3,Cancelled
+B0064,H01,Moore Resort,Lake Nancyview,H01-103,Suite,250,G016,Matthew Chapman,Denmark,2026-09-28,1,2026-09-29,4,Checked-out
+B0065,H03,Harrell Plaza,Meaganhaven,H03-104,Family,200,G039,Susan Cowan,Moldova,2026-08-21,7,2026-08-28,2,Checked-out
+B0066,H03,Harrell Plaza,Meaganhaven,H03-101,Family,190,G025,Robert Shields,Austria,2026-09-14,4,2026-09-18,4,Checked-out
+B0067,H02,Stanton Inn,New Rita,H02-102,Double,120,G038,Kristen Mitchell,Qatar,2026-09-28,4,2026-10-02,3,Checked-out
+B0068,H03,Harrell Plaza,Meaganhaven,H03-103,Suite,260,G040,Dorothy Tucker,Comoros,2026-01-18,1,2026-01-19,1,Checked-out
+B0069,H01,Moore Resort,Lake Nancyview,H01-107,Double,120,G041,Kenneth Novak,Mozambique,2026-02-02,2,2026-02-04,3,Checked-out
+B0070,H03,Harrell Plaza,Meaganhaven,H03-106,Double,130,G006,John Allen,Montenegro,2025-12-10,2,2025-12-12,2,Checked-out
+B0071,H01,Moore Resort,Lake Nancyview,H01-106,Single,80,G036,Rachel Martin,Afghanistan,2026-08-15,1,2026-08-16,2,Checked-out
+B0072,H01,Moore Resort,Lake Nancyview,H01-101,Suite,260,G027,Bruce Chandler,South Georgia and the South Sandwich Islands,2026-09-22,4,2026-09-26,4,Cancelled
+B0073,H02,Stanton Inn,New Rita,H02-102,Double,120,G003,Alyssa Smith,Gibraltar,2026-03-31,2,2026-04-02,3,Checked-out
+B0074,H03,Harrell Plaza,Meaganhaven,H03-107,Family,190,G019,Anthony Rivera,Malaysia,2026-06-18,6,2026-06-24,4,Checked-out
+B0075,H01,Moore Resort,Lake Nancyview,H01-103,Suite,250,G044,Samantha Schmidt,Azerbaijan,2025-12-29,2,2025-12-31,3,Checked-out
+B0076,H03,Harrell Plaza,Meaganhaven,H03-105,Double,130,G038,Kristen Mitchell,Qatar,2026-10-09,6,2026-10-15,2,Cancelled
+B0077,H02,Stanton Inn,New Rita,H02-106,Single,80,G008,Lisa Spence,Martinique,2026-09-15,5,2026-09-20,2,Cancelled
+B0078,H03,Harrell Plaza,Meaganhaven,H03-105,Double,130,G010,Stacey Martin,Marshall Islands,2026-10-26,3,2026-10-29,2,Cancelled
+B0079,H01,Moore Resort,Lake Nancyview,H01-103,Suite,250,G004,Tracy Rodriguez,Guyana,2026-08-26,2,2026-08-28,3,Checked-out
+B0080,H03,Harrell Plaza,Meaganhaven,H03-104,Family,200,G048,Ashley Riley,Armenia,2026-09-21,7,2026-09-28,3,Checked-out
+B0081,H02,Stanton Inn,New Rita,H02-107,Family,190,G008,Lisa Spence,Martinique,2025-11-12,4,2025-11-16,3,Checked-out
+B0082,H03,Harrell Plaza,Meaganhaven,H03-107,Family,190,G026,Emily Joyce,Bolivia,2026-07-30,3,2026-08-02,4,Checked-out
+B0083,H02,Stanton Inn,New Rita,H02-107,Family,190,G006,John Allen,Montenegro,2026-03-04,5,2026-03-09,1,Cancelled
+B0084,H02,Stanton Inn,New Rita,H02-106,Single,80,G048,Ashley Riley,Armenia,2026-10-09,3,2026-10-12,3,Checked-out
+B0085,H01,Moore Resort,Lake Nancyview,H01-101,Suite,260,G006,John Allen,Montenegro,2026-08-23,2,2026-08-25,1,Checked-out
+B0086,H03,Harrell Plaza,Meaganhaven,H03-106,Double,130,G018,Crystal Perez,United Kingdom,2026-09-15,5,2026-09-20,1,Checked-out
+B0087,H01,Moore Resort,Lake Nancyview,H01-106,Single,80,G031,Charles Morton,Togo,2026-08-26,5,2026-08-31,4,Cancelled
+B0088,H02,Stanton Inn,New Rita,H02-101,Double,140,G012,Sarah Campos,Portugal,2026-02-08,5,2026-02-13,4,Cancelled
+B0089,H03,Harrell Plaza,Meaganhaven,H03-105,Double,130,G032,Andrea Williams,Mauritius,2026-08-18,1,2026-08-19,4,Checked-out
+B0090,H02,Stanton Inn,New Rita,H02-104,Suite,270,G027,Bruce Chandler,South Georgia and the South Sandwich Islands,2025-12-12,3,2025-12-15,3,Checked-out
+B0091,H03,Harrell Plaza,Meaganhaven,H03-106,Double,130,G007,Stacey Miller,Libyan Arab Jamahiriya,2026-09-18,7,2026-09-25,2,Checked-out
+B0092,H02,Stanton Inn,New Rita,H02-103,Family,190,G027,Bruce Chandler,South Georgia and the South Sandwich Islands,2026-09-13,6,2026-09-19,4,Checked-out
+B0093,H02,Stanton Inn,New Rita,H02-102,Double,120,G043,Brian Silva,Macao,2026-01-23,4,2026-01-27,1,Cancelled
+B0094,H02,Stanton Inn,New Rita,H02-107,Family,190,G006,John Allen,Montenegro,2026-08-28,3,2026-08-31,3,Checked-out
+B0095,H02,Stanton Inn,New Rita,H02-103,Family,190,G008,Lisa Spence,Martinique,2026-04-20,7,2026-04-27,4,Checked-out
+B0096,H03,Harrell Plaza,Meaganhaven,H03-101,Family,190,G001,Chelsea Hernandez,Serbia,2026-02-22,6,2026-02-28,4,Cancelled
+B0097,H02,Stanton Inn,New Rita,H02-106,Single,80,G004,Tracy Rodriguez,Guyana,2026-08-21,2,2026-08-23,3,Checked-out
+B0098,H03,Harrell Plaza,Meaganhaven,H03-104,Family,200,G049,Christine Barnes,Myanmar,2026-01-25,4,2026-01-29,4,Checked-out
+B0099,H01,Moore Resort,Lake Nancyview,H01-102,Single,100,G014,Debra Kim,Maldives,2025-11-11,3,2025-11-14,2,Checked-out
+B0100,H02,Stanton Inn,New Rita,H02-102,Double,120,G029,Amanda Taylor,Cocos (Keeling) Islands,2026-01-12,6,2026-01-18,4,Checked-out
