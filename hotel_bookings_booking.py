@@ -1,5 +1,5 @@
 #Booking class links one Guest and one Room for a stay period
-#CSV columns booking_id, check_in, nights, check_out (derived), guests_count,
+#CSV columns booking_id, check_in, nights, check_out is derived, guest_count,
 from datetime import date, timedelta # import library for date manipulation
 
 
