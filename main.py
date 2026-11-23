@@ -395,3 +395,166 @@ class booking :     #represents a room reservation made by a customer at a hotel
     def __contains__(self, day):  
             return self.__check_in <= self.__validate_date(day) < self.get_check_out()
 
+class Hotel:
+    #validation methods
+    @staticmethod
+    def _validate_id(self, hotel_id: str):
+      if not isinstance(hotel_id, str) or not hotel_id.strip():
+        raise ValueError("Hotel ID must be a non-empty string")
+      return hotel_id.strip()
+    
+    @staticmethod
+    def __validate_text(value, field):
+      value = str(value).strip() 
+      if not value:  
+          raise ValueError(f"{field} can't be empty.") 
+      return value 
+
+    #getters and setters methods
+    def get_hotel_id(self):
+      return self.__hotel
+    
+    def get_name(self):
+      return self.__name
+    
+    def get_city(self):
+      return self.__city
+    
+    def get_rooms(self):
+      return list(self.__rooms)
+    
+    def set_hotel_id(self, new_hotel_id: str):
+      self.__hotel_id = self._validate_id(new_hotel_id)
+    
+    def set_name(self, new_name: str):
+      self.__name = self._validate_text(new_name, "hotel_name")
+    
+    def set_city(self, new_city: str):
+      self.__city = self._validate_text(new_city, "hotel_city")
+
+    #constructor
+    def __init__(self, hotel_id: str, name: str, city: str):
+        self.__hotel_id = self._validate_id(hotel_id)
+        self.__name = self._validate_text(name, "hotel_name")
+        self.__city = self._validate_text(city, "hotel_city")
+        self.__rooms = []
+
+
+    #behaviour
+    
+    #Checks that room exist and for dulipcates, adds it 
+    #add_room(room): validates the object, rejects a duplicate room_id, then adds the
+    #room to the hotel.
+    def add_room(self, room_obj):
+        #can the object be different when checking like this? so maybe better to check on id?
+        if self.__contains__(room_obj): #guard since it should fail when it exists
+          raise ValueError(f"Room {room_obj.get_booking_id()} is already registered.")
+        # end state add it to the room;
+        self._rooms.append(room_obj)
+  
+    #find_room(room_id): returns the matching Room, or None.
+    def find_room(self, room_id): 
+        for room in self._rooms:
+          if room.get_room_id() == room_id:
+            return room
+        return None
+    
+    #creates the booking by finding a room, checking its availabity and assign it.
+    #finds the
+    #room, checks that it is available, and creates the Booking. This is the entry point for
+    #new reservations.
+    def book_room(self, booking_id: str, guest, room_id: str, check_in: str, nights: int, guests_count: int):
+      try:
+        room = self.find_room(room_id)
+        #guard for non existing room
+        if room == None:
+          raise ValueError(f"Room {room_id} is not registered for this Hotel {self.__hotel_name}.")
+          #we can presume the room exists now
+        #guard for not available
+        if room.is_available(check_in, nights) == False:
+          raise ValueError(f"Room {room_id} is not available for {check_in} for {nights} nights.")
+    
+    
+        booking = Booking(booking_id, guest, room, check_in, nights, guests_count)
+    
+        booking.check_fit(guests_count, room) # already has a raise valueError in it;
+        room.add_booking(booking)
+        guest.add_booking(booking)
+      except:
+        return None
+      return booking
+    
+    #rm_room(room_id): removes a room, only if it has no active bookings.
+    def rm_room(self, room_id):
+        room = self.find_room(room_id)
+        for booking in room.get_bookings():
+          if booking.is_active():
+            #if the room has active booking return
+            raise ValueError(f"Room {room_id} has active bookings and cannot be removed.")
+        self.rooms.remove(room)
+        return room
+    #get_rooms_by_type(room_type): returns all rooms of one category (Single, Double,
+    #Family, Suite).
+    def get_rooms_by_type(self, room_type):
+        #guard if room type is none return all
+        if room_type == None:
+          return self.rooms
+        room_list = []
+        for room in self.rooms:
+          if room.get_room_type() == room_type:
+            room_list.append(room)
+        return room_list
+        
+    # get_available_rooms(check_in, nights, room_type=None): returns rooms free for the
+    #requested stay by asking each room’s is_available().
+    def get_available_rooms(self, check_in, nights, room_type=None):
+      #since we have a default for the room_type, we can do it per room_type
+        room_list = self.get_rooms_by_type(room_type)
+        available_rooms = []
+        for room in room_list:
+          if room.is_available(check_in, nights):
+            available_rooms.append(room)
+        return available_rooms
+        
+    # get_all_bookings(): collects the bookings of every room in the hotel.
+    def get_all_bookings(self):
+        all_bookings = []
+        for room in self.rooms:
+          all_bookings.extend(room.get_bookings())
+        return all_bookings
+
+    # calculate_revenue(): sums the total cost of the hotel’s checked-out bookings.
+    def calculate_revenue(self):
+        total_revenue = 0
+        for booking in self.get_all_bookings():
+          if booking.get_status() == "Checked-out":
+            total_revenue += booking.calculate_total_cost()
+        return total_revenue
+
+    #get_cancellation_rate(): returns the share of the hotel’s bookings that were cancelled.  
+    def get_cancellation_rate(self):
+        all_bookings = self.get_all_bookings()
+        cancelled_bookings = 0
+        for booking in all_bookings:
+          if booking.is_cancelled():
+            cancelled_bookings += 1
+        return cancelled_bookings / len(all_bookings)
+
+    #special methods
+    def __str__(self): 
+        return f"{self.__hotel_id} - {self.__hotel_name} ({self.__city})"  
+
+    def __eq__(self, other): 
+        if not isinstance(other, Hotel):  
+            return NotImplemented 
+        return self.__hotel_id == other.__hotel_id 
+    
+    def __hash__(self):  
+        return hash(self.__hotel_id)  
+
+    def __len__(self):  
+        return len(self.__rooms) 
+        
+    def __contains__(self, room): 
+        return room in self.__rooms  
+
