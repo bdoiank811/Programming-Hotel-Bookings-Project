@@ -1,4 +1,5 @@
 from datetime import date, timedelta # import library for date manipulation
+import csv
 
 class Room:
     def _validate_type(self, room_type):
@@ -203,6 +204,9 @@ class guest:  # hotel guest and the list of bookings they made
     def __contains__(self, booking): 
         return booking in self.__bookings  
 
+# Conventional-capitalized alias; existing code may continue using guest.
+Guest = guest
+
 
 #Booking class links one Guest and one Room for a stay period
 #CSV columns booking_id, check_in, nights, check_out is derived, guest_count,
@@ -395,10 +399,13 @@ class booking :     #represents a room reservation made by a customer at a hotel
     def __contains__(self, day):  
             return self.__check_in <= self.__validate_date(day) < self.get_check_out()
 
+# Conventional-capitalized alias; existing code may continue using booking.
+Booking = booking
+
 class Hotel:
     #validation methods
     @staticmethod
-    def _validate_id(self, hotel_id: str):
+    def _validate_id(hotel_id: str):
       if not isinstance(hotel_id, str) or not hotel_id.strip():
         raise ValueError("Hotel ID must be a non-empty string")
       return hotel_id.strip()
@@ -412,7 +419,7 @@ class Hotel:
 
     #getters and setters methods
     def get_hotel_id(self):
-      return self.__hotel
+      return self.__hotel_id
     
     def get_name(self):
       return self.__name
@@ -427,16 +434,16 @@ class Hotel:
       self.__hotel_id = self._validate_id(new_hotel_id)
     
     def set_name(self, new_name: str):
-      self.__name = self._validate_text(new_name, "hotel_name")
+      self.__name = self.__validate_text(new_name, "hotel_name")
     
     def set_city(self, new_city: str):
-      self.__city = self._validate_text(new_city, "hotel_city")
+      self.__city = self.__validate_text(new_city, "hotel_city")
 
     #constructor
     def __init__(self, hotel_id: str, name: str, city: str):
         self.__hotel_id = self._validate_id(hotel_id)
-        self.__name = self._validate_text(name, "hotel_name")
-        self.__city = self._validate_text(city, "hotel_city")
+        self.__name = self.__validate_text(name, "hotel_name")
+        self.__city = self.__validate_text(city, "hotel_city")
         self.__rooms = []
 
 
@@ -446,15 +453,16 @@ class Hotel:
     #add_room(room): validates the object, rejects a duplicate room_id, then adds the
     #room to the hotel.
     def add_room(self, room_obj):
-        #can the object be different when checking like this? so maybe better to check on id?
-        if self.__contains__(room_obj): #guard since it should fail when it exists
-          raise ValueError(f"Room {room_obj.get_booking_id()} is already registered.")
-        # end state add it to the room;
-        self._rooms.append(room_obj)
+        if not isinstance(room_obj, Room):
+          raise TypeError("room_obj must be a Room.")
+        if room_obj in self: #guard since it should fail when it exists
+          raise ValueError(f"Room {room_obj.get_room_id()} is already registered.")
+        room_obj.set_hotel(self)
+        self.__rooms.append(room_obj)
   
     #find_room(room_id): returns the matching Room, or None.
     def find_room(self, room_id): 
-        for room in self._rooms:
+        for room in self.__rooms:
           if room.get_room_id() == room_id:
             return room
         return None
@@ -464,44 +472,42 @@ class Hotel:
     #room, checks that it is available, and creates the Booking. This is the entry point for
     #new reservations.
     def book_room(self, booking_id: str, guest, room_id: str, check_in: str, nights: int, guests_count: int):
-      try:
         room = self.find_room(room_id)
         #guard for non existing room
         if room == None:
-          raise ValueError(f"Room {room_id} is not registered for this Hotel {self.__hotel_name}.")
+          raise ValueError(f"Room {room_id} is not registered for this Hotel {self.__hotel_id}.")
           #we can presume the room exists now
         #guard for not available
         if room.is_available(check_in, nights) == False:
           raise ValueError(f"Room {room_id} is not available for {check_in} for {nights} nights.")
     
-    
         booking = Booking(booking_id, guest, room, check_in, nights, guests_count)
     
         booking.check_fit(guests_count, room) # already has a raise valueError in it;
-        room.add_booking(booking)
         guest.add_booking(booking)
-      except:
-        return None
-      return booking
+        room.add_booking(booking)
+        return booking
     
     #rm_room(room_id): removes a room, only if it has no active bookings.
     def rm_room(self, room_id):
         room = self.find_room(room_id)
+        if room is None:
+          raise ValueError(f"Room {room_id} is not registered for this Hotel {self.__hotel_id}.")
         for booking in room.get_bookings():
           if booking.is_active():
             #if the room has active booking return
             raise ValueError(f"Room {room_id} has active bookings and cannot be removed.")
-        self.rooms.remove(room)
+        self.__rooms.remove(room)
         return room
     #get_rooms_by_type(room_type): returns all rooms of one category (Single, Double,
     #Family, Suite).
     def get_rooms_by_type(self, room_type):
         #guard if room type is none return all
         if room_type == None:
-          return self.rooms
+          return self.get_rooms()
         room_list = []
-        for room in self.rooms:
-          if room.get_room_type() == room_type:
+        for room in self.__rooms:
+          if room.get_room_type().lower() == str(room_type).lower():
             room_list.append(room)
         return room_list
         
@@ -519,7 +525,7 @@ class Hotel:
     # get_all_bookings(): collects the bookings of every room in the hotel.
     def get_all_bookings(self):
         all_bookings = []
-        for room in self.rooms:
+        for room in self.__rooms:
           all_bookings.extend(room.get_bookings())
         return all_bookings
 
@@ -534,6 +540,8 @@ class Hotel:
     #get_cancellation_rate(): returns the share of the hotel’s bookings that were cancelled.  
     def get_cancellation_rate(self):
         all_bookings = self.get_all_bookings()
+        if not all_bookings:
+          return 0
         cancelled_bookings = 0
         for booking in all_bookings:
           if booking.is_cancelled():
@@ -542,7 +550,7 @@ class Hotel:
 
     #special methods
     def __str__(self): 
-        return f"{self.__hotel_id} - {self.__hotel_name} ({self.__city})"  
+        return f"{self.__hotel_id} - {self.__name} ({self.__city})"
 
     def __eq__(self, other): 
         if not isinstance(other, Hotel):  
@@ -557,4 +565,110 @@ class Hotel:
         
     def __contains__(self, room): 
         return room in self.__rooms  
+
+
+def load_hotel_bookings_csv(file_path):
+    """Load the project's combined hotel/room/guest/booking CSV format.
+
+    Historical CSV capacity mismatches are reported as warnings without
+    preventing the records from being loaded. Capacity is still enforced
+    when using Hotel.book_room() or Booking.update_stay().
+    """
+    hotels = {}
+    guests = {}
+    bookings = []
+    warnings = []
+
+    with open(file_path, newline="", encoding="utf-8-sig") as csv_file:
+        reader = csv.DictReader(csv_file)
+        required_columns = {
+            "booking_id", "hotel_id", "hotel_name", "hotel_city",
+            "room_id", "room_type", "room_rate", "guest_id",
+            "guest_name", "guest_country", "check_in", "nights",
+            "check_out", "guests_count", "booking_status",
+        }
+        missing_columns = required_columns.difference(reader.fieldnames or [])
+        if missing_columns:
+            missing = ", ".join(sorted(missing_columns))
+            raise ValueError(f"CSV is missing required columns: {missing}")
+
+        for row_number, row in enumerate(reader, start=2):
+            hotel_id = row["hotel_id"].strip()
+            room_id = row["room_id"].strip()
+            guest_id = row["guest_id"].strip()
+
+            hotel = hotels.get(hotel_id)
+            if hotel is None:
+                hotel = Hotel(hotel_id, row["hotel_name"], row["hotel_city"])
+                hotels[hotel_id] = hotel
+            else:
+                if hotel.get_name() != row["hotel_name"].strip():
+                    raise ValueError(
+                        f"CSV row {row_number}: hotel {hotel_id} has conflicting names."
+                    )
+                if hotel.get_city() != row["hotel_city"].strip():
+                    raise ValueError(
+                        f"CSV row {row_number}: hotel {hotel_id} has conflicting cities."
+                    )
+
+            room = hotel.find_room(room_id)
+            if room is None:
+                room = Room(room_id, row["room_type"], row["room_rate"], hotel)
+                hotel.add_room(room)
+            else:
+                if room.get_room_type().lower() != row["room_type"].lower():
+                    raise ValueError(
+                        f"CSV row {row_number}: room {room_id} has conflicting types."
+                    )
+                if room.get_room_rate() != float(row["room_rate"]):
+                    raise ValueError(
+                        f"CSV row {row_number}: room {room_id} has conflicting rates."
+                    )
+
+            guest = guests.get(guest_id)
+            if guest is None:
+                guest = Guest(guest_id, row["guest_name"], row["guest_country"])
+                guests[guest_id] = guest
+            else:
+                if guest.getname() != row["guest_name"].strip():
+                    raise ValueError(
+                        f"CSV row {row_number}: guest {guest_id} has conflicting names."
+                    )
+                if guest.getcountry() != row["guest_country"].strip():
+                    raise ValueError(
+                        f"CSV row {row_number}: guest {guest_id} has conflicting countries."
+                    )
+
+            guest_count = int(row["guests_count"])
+            try:
+                booking.check_fit(guest_count, room)
+            except ValueError as error:
+                warnings.append({
+                    "row": row_number,
+                    "booking_id": row["booking_id"].strip(),
+                    "room_id": room_id,
+                    "guests_count": guest_count,
+                    "room_capacity": room.capacity(),
+                    "message": str(error),
+                })
+
+            booking_obj = Booking(
+                row["booking_id"],
+                guest,
+                room,
+                row["check_in"],
+                row["nights"],
+                guest_count,
+                row["booking_status"],
+            )
+            room.add_booking(booking_obj)
+            guest.add_booking(booking_obj)
+            bookings.append(booking_obj)
+
+    return {
+        "hotels": hotels,
+        "guests": guests,
+        "bookings": bookings,
+        "warnings": warnings,
+    }
 
