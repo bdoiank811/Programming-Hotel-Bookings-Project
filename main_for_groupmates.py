@@ -672,3 +672,171 @@ def load_hotel_bookings_csv(file_path):
         "warnings": warnings,
     }
 
+# menu for user interaction
+def ask(prompt):
+    # input() with surrounding spaces removed
+    return input(prompt).strip()
+
+
+def choose_hotel(hotels):
+    # show all hotels and let the user pick one. returns a Hotel or None
+    print("\nHotels:")
+    for hotel in hotels.values():
+        print(f"  {hotel}")
+    hotel_id = ask("Enter hotel ID (e.g. H01): ").upper()
+    hotel = hotels.get(hotel_id)
+    if hotel is None:
+        print("Unknown hotel ID.")
+    return hotel
+
+
+def next_booking_id(bookings):
+    # finds the highest existing number and adds 1
+    highest = max((int(b.get_booking_id()[1:]) for b in bookings), default=0)
+    return f"B{highest + 1:04d}"
+
+
+def show_rooms(hotels):
+    hotel = choose_hotel(hotels)
+    if hotel is None:
+        return
+    room_type = ask("Room type (single/double/family/suite, Enter for all): ") or None
+    rooms = hotel.get_rooms_by_type(room_type)
+    print(f"\nRooms in {hotel.get_name()}:")
+    for room in rooms:
+        print(f"  {room} (fits {room.capacity()})")
+    if not rooms:
+        print("  No rooms found.")
+
+
+def search_available(hotels):
+    hotel = choose_hotel(hotels)
+    if hotel is None:
+        return
+    check_in = ask("Check-in date (YYYY-MM-DD): ")
+    nights = ask("Number of nights: ")
+    room_type = ask("Room type (Enter for any): ") or None
+    rooms = hotel.get_available_rooms(check_in, nights, room_type)
+    print("\nAvailable rooms:")
+    for room in rooms:
+        print(f"  {room} (fits {room.capacity()})")
+    if not rooms:
+        print("  Nothing available for those dates.")
+
+
+def book_a_room(data):
+    hotels, guests, bookings = data["hotels"], data["guests"], data["bookings"]
+    hotel = choose_hotel(hotels)
+    if hotel is None:
+        return
+    check_in = ask("Check-in date (YYYY-MM-DD): ")
+    nights = ask("Number of nights: ")
+    guests_count = ask("Number of guests: ")
+
+    # show the free rooms so the user can select one
+    rooms = hotel.get_available_rooms(check_in, nights)
+    if not rooms:
+        print("No rooms available for those dates.")
+        return
+    print("\nAvailable rooms:")
+    for number, room in enumerate(rooms, start=1):
+        print(f"  {number}. {room} (fits {room.capacity()})")
+    choice = ask("Select a room number: ")
+    if not choice.isdigit() or not 1 <= int(choice) <= len(rooms):
+        print("Invalid choice.")
+        return
+    room = rooms[int(choice) - 1]
+
+    # existing guest or create a new one
+    guest_id = ask("Guest ID (e.g. G001, or Enter for a new guest): ").upper()
+    if guest_id:
+        guest_obj = guests.get(guest_id)
+        if guest_obj is None:
+            print("Unknown guest ID.")
+            return
+    else:
+        highest = max((int(g[1:]) for g in guests), default=0)
+        guest_id = f"G{highest + 1:03d}"
+        guest_obj = Guest(guest_id, ask("Guest name: "), ask("Guest country: "))
+        guests[guest_id] = guest_obj
+
+    new_booking = hotel.book_room(next_booking_id(bookings), guest_obj,
+                                  room.get_room_id(), check_in, nights, guests_count)
+    bookings.append(new_booking)
+    print(f"\nBooked! {new_booking}")
+    print(f"Total cost: {new_booking.calculate_total_cost():.2f}")
+
+
+def cancel_booking(bookings):
+    booking_id = ask("Booking ID to cancel (e.g. B0001): ").upper()
+    for b in bookings:
+        if b.get_booking_id() == booking_id:
+            b.cancel()
+            print(f"Cancelled: {b}")
+            return
+    print("Booking not found.")
+
+
+def show_guest(guests):
+    guest_obj = guests.get(ask("Guest ID (e.g. G001): ").upper())
+    if guest_obj is None:
+        print("Unknown guest ID.")
+        return
+    print(f"\n{guest_obj}")
+    for b in guest_obj.getbookings():
+        print(f"  {b}")
+    print(f"Total nights: {guest_obj.get_totalnights()}, total spent: {guest_obj.total_spent():.2f}")
+
+
+def show_stats(hotels):
+    hotel = choose_hotel(hotels)
+    if hotel is None:
+        return
+    print(f"\n{hotel}")
+    print(f"  Rooms: {len(hotel)}")
+    print(f"  Bookings: {len(hotel.get_all_bookings())}")
+    print(f"  Revenue: {hotel.calculate_revenue():.2f}")
+    print(f"  Cancellation rate: {hotel.get_cancellation_rate():.1%}")
+
+
+def main():
+    data = load_hotel_bookings_csv("hotel_booking.csv")
+    print(f"Loaded {len(data['bookings'])} bookings from {len(data['hotels'])} hotels.")
+
+    while True:
+        print("\n===== HOTEL BOOKINGS =====")
+        print("1. Show rooms of a hotel")
+        print("2. Search available rooms")
+        print("3. Book a room")
+        print("4. Cancel a booking")
+        print("5. Show a guest and their bookings")
+        print("6. Hotel statistics")
+        print("0. Quit")
+        choice = ask("Choose an option: ")
+
+        try:
+            match choice:
+                case "1":
+                    show_rooms(data["hotels"])
+                case "2":
+                    search_available(data["hotels"])
+                case "3":
+                    book_a_room(data)
+                case "4":
+                    cancel_booking(data["bookings"])
+                case "5":
+                    show_guest(data["guests"])
+                case "6":
+                    show_stats(data["hotels"])
+                case "0":
+                    print("Goodbye!")
+                    break
+                case _:
+                    print("Invalid option, try again.")
+        except (ValueError, TypeError) as error:
+            # validation errors from the classes end up here instead of crashing
+            print(f"Error: {error}")
+
+
+if __name__ == "__main__":
+    main()
