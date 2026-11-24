@@ -169,6 +169,7 @@ class guest:  # hotel guest and the list of bookings they made
         if booking in self.__bookings:  # check for duplicates
             raise ValueError(f"Booking {booking.get_booking_id()} is already registered.")  # reject duplicates
         self.__bookings.append(booking)  
+
     def rm_booking(self, booking_id): 
         for booking in self.__bookings:  
             if booking.get_booking_id() == booking_id:  #booking with matching id taken out of the list 
@@ -273,11 +274,6 @@ class booking :     #represents a room reservation made by a customer at a hotel
                 if status.lower() == allowed.lower():
                     return allowed  # store cleaned up version
             raise ValueError(f"Status '{status}' must be one of {cls.allowed_status}.")
-
-
-
-
-
 
     # getters and setters
     def get_booking_id(self):
@@ -468,9 +464,7 @@ class Hotel:
         return None
     
     #creates the booking by finding a room, checking its availabity and assign it.
-    #finds the
-    #room, checks that it is available, and creates the Booking. This is the entry point for
-    #new reservations.
+    #finds the room, checks that it is available, and creates the Booking. This is the entry point for new reservations.
     def book_room(self, booking_id: str, guest, room_id: str, check_in: str, nights: int, guests_count: int):
         room = self.find_room(room_id)
         #guard for non existing room
